@@ -2,7 +2,7 @@ import './App.css'
 import {StreamChat} from 'stream-chat'
 import { Chat } from 'stream-chat-react'
 import Cookies  from 'universal-cookie'
-import {ChannelListContainer,TeamChannelPreview, ChannelContainer} from './components'
+import {ChannelListContainer,TeamChannelPreview,  ChannelContainer} from './components'
 
 const apiKey = import.meta.env.VITE_API_KEY
 
