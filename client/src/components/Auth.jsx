@@ -4,6 +4,8 @@ import axios from 'axios'
 
 import signImgae from '../assets/signup.jpg'
 
+const cookies = new Cookies();
+
 const initialState = {
     fullname: '',
     username: '',
@@ -27,10 +29,28 @@ const Auth = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
 
-      console.log('Sign In');
+    const {fullname, username, phone, avatarURL, password, confirmPassword} = form;
+
+    const URL = `http://localhost:5001/auth`;
+
+    const {data: {token, userId, hashedPassword}} = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
+      username, phone, fullname, avatarURL, password});
+
+    cookies.set('token', token);
+    cookies.set('username', username);
+    cookies.set('fullname', fullname);
+    cookies.set('userId', userId);
+
+    if(isSignup) {
+      cookies.set('phone', phone);
+      cookies.set('avatarURL', avatarURL);
+      cookies.set('hashedPassword', hashedPassword);
+    }
+
+    window.location.replace();
   }
   
   return (

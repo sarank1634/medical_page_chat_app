@@ -4,11 +4,24 @@ import { Chat } from 'stream-chat-react'
 import Cookies  from 'universal-cookie'
 import {ChannelListContainer , ChannelContainer, Auth} from './components'
 
-const apiKey = import.meta.env.VITE_API_KEY
+const cookies = new Cookies();
+
+const apiKey =  process.env.STREAM_API_KEY
+const authToken = cookies.get('token');
+
 
 const client = StreamChat.getInstance(apiKey)
 
-const authToken = false;
+if(authToken) {
+  client.connectUser({
+    id: cookies.get('userId'),
+    name: cookies.get('username'),
+    phone: cookies.get('phone'),
+    full_name: cookies.get('fullname'),
+    avatar_url: cookies.get('avatarURL'),
+    hashedPassword: cookies.get('hashedPassword'),
+  })
+}
 
 function App() {
 
