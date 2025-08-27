@@ -4,10 +4,10 @@ import { AddChannel } from '../assets'
 const TeamChannelList = ({children,error=false,loading, type}) => {
 
     if(error){
-        return === 'team' ? (
+        return type === 'team' ? (
           <div className="team-channel-list">
             <p className="team-channel-list__message">
-                Connection error, error plese wait a moment and try again.
+                Connection error, please wait a moment and try again.
             </p>
           </div>
         ): null;
