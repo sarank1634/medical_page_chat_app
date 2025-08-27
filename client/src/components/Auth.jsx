@@ -2,22 +2,43 @@ import React, { useState } from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 
-import signImgae from '../assets/sign.png'
-const Auth = () => {
-  const [isSignup, setIsSignup] = useState(true)
+import signImgae from '../assets/signup.jpg'
 
-  const handleChange = () => {}
+const initialState = {
+    fullname: '',
+    username: '',
+    phone: '',
+    avatarURL: '',
+    password: '',
+    confirmPassword: '',
+}
+
+const Auth = () => {
+  const [form, setForm] = useState(initialState);
+  const [isSignup, setIsSignup] = useState(true);
+
+  const handleChange = (e) => {
+    setForm({...form, [e.target.name]: e.target.value})
+
+    console.log(form)
+  }
 
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup)
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+      console.log('Sign In');
+  }
+  
   return (
     <div className='auth__form-container'>
         <div className="auth__form-container_fileds">
         <div className="auth__form-container_fileds-content">
           <p> {isSignup ? 'Sign Up' : 'Sign In'} </p>
-          <form onSubmit= {() => {}}>
+          <form onSubmit= {handleSubmit}>
             {isSignup && (
               <div className="auth__form-container_fileds-content_input">
                 <label htmlFor="name">Full Name</label>
@@ -64,7 +85,6 @@ const Auth = () => {
                        />
                        </div>
                 )}
-                  {isSignup && (
                  <div className="auth__form-container_fileds-content_input">
                 <label htmlFor="password">Password </label>
                 <input 
@@ -75,7 +95,6 @@ const Auth = () => {
                        onChange={handleChange}
                        />
                        </div>
-                )}
                 {isSignup && (
                  <div className="auth__form-container_fileds-content_input">
                 <label htmlFor="confirmPassword">Confirm Password </label>
@@ -88,10 +107,12 @@ const Auth = () => {
                        />
                        </div>
                 )}   
+                <div className="auth__form-container_field-content_button">
+                  <button type='submit'> {isSignup ? 'Sign Up' : 'Sign In'} </button>
+                </div>
           </form>
           <div className="auth__form-container_fileds-account">
             <p>
-
               {isSignup ? 'Already have an account? ' : 'Dont have an account? '}
               <span onClick={switchMode}>
                 {isSignup ? 'Sign In' : 'Sign Up'}
@@ -107,4 +128,4 @@ const Auth = () => {
   )
 }
 
-export default Auth
+export default Auth;

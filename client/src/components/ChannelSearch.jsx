@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEff } from 'react'
+import { useState, useEffect } from 'react'
 // import {getChannel, useChatContext} from 'stream-chat-react'
 
 import {SearchIcon} from '../assets'
