@@ -55,12 +55,12 @@ const Auth = () => {
   
   return (
     <div className='auth__form-container'>
-        <div className="auth__form-container_fileds">
-        <div className="auth__form-container_fileds-content">
+        <div className="auth__form-container_fields">
+        <div className="auth__form-container_fields-content">
           <p> {isSignup ? 'Sign Up' : 'Sign In'} </p>
           <form onSubmit= {handleSubmit}>
             {isSignup && (
-              <div className="auth__form-container_fileds-content_input">
+              <div className="auth__form-container_fields-content_input">
                 <label htmlFor="name">Full Name</label>
                 <input 
                        name='fullname'
@@ -71,7 +71,7 @@ const Auth = () => {
                        />
                        </div>
             )}
-             <div className="auth__form-container_fileds-content_input">
+             <div className="auth__form-container_fields-content_input">
                 <label htmlFor="username">UserName</label>
                 <input 
                       name='username'
@@ -82,7 +82,7 @@ const Auth = () => {
                        />
                 </div>
                 {isSignup && (
-              <div className="auth__form-container_fileds-content_input">
+              <div className="auth__form-container_fields-content_input">
                 <label htmlFor="name">Phone Number</label>
                 <input 
                        name='phone'
@@ -94,7 +94,7 @@ const Auth = () => {
                        </div>
                 )}
                 {isSignup && (
-              <div className="auth__form-container_fileds-content_input">
+              <div className="auth__form-container_fields-content_input">
                 <label htmlFor="avatar">Avatar URL</label>
                 <input 
                        name='avatarURL'
@@ -105,7 +105,7 @@ const Auth = () => {
                        />
                        </div>
                 )}
-                 <div className="auth__form-container_fileds-content_input">
+                 <div className="auth__form-container_fields-content_input">
                 <label htmlFor="password">Password </label>
                 <input 
                        name='password'
@@ -116,7 +116,7 @@ const Auth = () => {
                        />
                        </div>
                 {isSignup && (
-                 <div className="auth__form-container_fileds-content_input">
+                 <div className="auth__form-container_fields-content_input">
                 <label htmlFor="confirmPassword">Confirm Password </label>
                 <input 
                        name='confirmPassword'
@@ -131,7 +131,7 @@ const Auth = () => {
                   <button type='submit'> {isSignup ? 'Sign Up' : 'Sign In'} </button>
                 </div>
           </form>
-          <div className="auth__form-container_fileds-account">
+          <div className="auth__form-container_fields-account">
             <p>
               {isSignup ? 'Already have an account? ' : 'Dont have an account? '}
               <span onClick={switchMode}>
