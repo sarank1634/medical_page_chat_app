@@ -10,7 +10,7 @@ import { ChannelList } from 'stream-chat-react'
 import HosPitalIcon from '../assets/hospital.png'
 import LogoutIcon from '../assets/logout.png'
 
-const SideBar = () => (
+const SideBar = ({logout}) => (
   
    <div className="channel-list__sidebar">
     <div className="channel-list__sidebar__icon1">
@@ -19,7 +19,7 @@ const SideBar = () => (
        </div>
     </div>
     <div className="channel-list__sidebar__icon2">
-       <div className="icon2_inner">
+       <div className="icon2_inner" onClick={logout}>
         <img src={LogoutIcon} alt="Logout" width={30} />
        </div>
     </div>
@@ -33,9 +33,22 @@ const  CompanyHeader = () => (
 )
 
 const ChannerListContainer = () => {
+ const cookies = new Cookies();
+
+ const logout = () => {
+    cookies.remove('userId');
+    cookies.remove('username');
+    cookies.remove('phone');
+    cookies.remove('fullname');
+    cookies.remove('avatarURL');
+    cookies.remove('hashedPassword');
+    cookies.remove('token');
+
+    window.location.reload();
+ }
   return (
    <>
-     <SideBar />
+     <SideBar logout={logout} />
      <div className="channel-list__list__wrapper">
      <CompanyHeader />
      <ChannelSearch />

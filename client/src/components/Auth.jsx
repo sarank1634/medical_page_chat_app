@@ -29,28 +29,54 @@ const Auth = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup)
   }
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const {fullname, username, phone, avatarURL, password, confirmPassword} = form;
 
-    const URL = `http://localhost:5001/auth`;
-
-    const {data: {token, userId, hashedPassword}} = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
-      username, phone, fullname, avatarURL, password});
-
-    cookies.set('token', token);
-    cookies.set('username', username);
-    cookies.set('fullname', fullname);
-    cookies.set('userId', userId);
-
-    if(isSignup) {
-      cookies.set('phone', phone);
-      cookies.set('avatarURL', avatarURL);
-      cookies.set('hashedPassword', hashedPassword);
+    // Form validation
+    if (isSignup) {
+      if (!fullname.trim() || !username.trim() || !phone.trim() || !password.trim() || !confirmPassword.trim()) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+      if (password.length < 6) {
+        alert('Password must be at least 6 characters long');
+        return;
+      }
+    } else {
+      if (!username.trim() || !password.trim()) {
+        alert('Please fill in username and password');
+        return;
+      }
     }
 
-    window.location.replace();
+    try {
+      const URL = `http://localhost:5001/auth`;
+
+      const {data: {token, userId, hashedPassword}} = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
+        username, phone, fullname, avatarURL, password});
+
+      cookies.set('token', token);
+      cookies.set('username', username);
+      cookies.set('fullname', fullname);
+      cookies.set('userId', userId);
+
+      if(isSignup) {
+        cookies.set('phone', phone);
+        cookies.set('avatarURL', avatarURL);
+        cookies.set('hashedPassword', hashedPassword);
+      }
+
+      window.location.reload();
+    } catch (error) {
+      console.error('Authentication error:', error);
+      alert(error.response?.data?.message || 'Authentication failed. Please try again.');
+    }
   }
   
   return (
@@ -61,7 +87,7 @@ const Auth = () => {
           <form onSubmit= {handleSubmit}>
             {isSignup && (
               <div className="auth__form-container_fields-content_input">
-                <label htmlFor="name">Full Name</label>
+                <label htmlFor="fullname">Full Name</label>
                 <input 
                        name='fullname'
                        type="text" 
@@ -72,18 +98,18 @@ const Auth = () => {
                        </div>
             )}
              <div className="auth__form-container_fields-content_input">
-                <label htmlFor="username">UserName</label>
+                <label htmlFor="username">User Name</label>
                 <input 
                       name='username'
                        type="text" 
                        id='username' 
-                       placeholder='User ame'
+                       placeholder='User name'
                        onChange={handleChange}
                        />
                 </div>
                 {isSignup && (
               <div className="auth__form-container_fields-content_input">
-                <label htmlFor="name">Phone Number</label>
+                <label htmlFor="phone">Phone Number</label>
                 <input 
                        name='phone'
                        type="number" 
@@ -95,11 +121,11 @@ const Auth = () => {
                 )}
                 {isSignup && (
               <div className="auth__form-container_fields-content_input">
-                <label htmlFor="avatar">Avatar URL</label>
+                <label htmlFor="avatarURL">Avatar URL</label>
                 <input 
                        name='avatarURL'
                        type="text" 
-                       id='avatar' 
+                       id='avatarURL' 
                        placeholder='Avatar URL'
                        onChange={handleChange}
                        />
