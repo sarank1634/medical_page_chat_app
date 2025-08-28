@@ -74,10 +74,8 @@ function App() {
           <ChannelListContainer 
            isCreating={isCreating}
            setIsCreating={setIsCreating}
-           isEditing={isEditing}
-           setIsEditing={setIsEditing} 
            setCreateType={setCreateType}
-           createType={createType}   
+           createType={setIsEditing }   
         />
         <ChannelContainer 
            isCreating={isCreating}
