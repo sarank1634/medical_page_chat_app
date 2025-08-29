@@ -45,6 +45,7 @@ const UserList = ( { setSelectedUsers } ) => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [listEmpty, setListEmpty] = useState(false);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
        const getUsers = async () => {
@@ -65,15 +66,34 @@ const UserList = ( { setSelectedUsers } ) => {
                 setListEmpty(true);
             }
         } catch (error) {
-            console.log(error);
+            setError(true);
         }  
         setLoading(false);
        }
 
        if(client) getUsers();
-
     }, []); 
     
+    if(error){
+        return (
+            <ListContainer>
+                <div className="user-list__message">
+                   Error Loading users ... plese refresh and try again.
+                </div>
+            </ListContainer>
+        );
+    }
+
+    if(listEmpty){
+        return (
+            <ListContainer>
+                <div className="user-list__message">
+                   No users available.
+                </div>
+            </ListContainer>
+        );
+    }
+
     return(
         <ListContainer>
           {loading  ? <div className="user-list__message">
@@ -83,7 +103,6 @@ const UserList = ( { setSelectedUsers } ) => {
                 <UserItem index={i} key={user.id} user={user} setSelectedUsers={setSelectedUsers}/>
             ))
           )}
-
         </ListContainer>
     )
 }
