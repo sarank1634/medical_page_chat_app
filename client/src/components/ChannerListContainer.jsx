@@ -64,7 +64,7 @@ const {client} = useChatContext();
      <SideBar logout={logout} />
      <div className="channel-list__list__wrapper">
      <CompanyHeader />
-     <ChannelSearch />
+     <ChannelSearch setToggleContainer=/>
      <ChannelList
        filters={filters}
        channelRenderFilterFn={customChannelTeamfilter}
