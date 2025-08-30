@@ -1,7 +1,7 @@
 import React from 'react'
 import { AddChannel } from '../assets'
 
-const TeamChannelList = ({children,error=false,loading, type, isCreating, setIsCreating, setCreateType, createType}) => {
+const TeamChannelList = ({setToggleContainer,children,error=false,loading, type, isCreating, setIsCreating, setCreateType, createType}) => {
 
     if(error){
         return type === 'team' ? (
@@ -33,7 +33,9 @@ const TeamChannelList = ({children,error=false,loading, type, isCreating, setIsC
              setIsCreating={setIsCreating}
              setCreateType={setCreateType}
              createType={createType}
-             type = {type === 'team' ? 'team' : 'messaging'}/>
+             type = {type === 'team' ? 'team' : 'messaging'}
+             setToggleContainer={setToggleContainer}
+             />
         </div>
            {children}
            </div>

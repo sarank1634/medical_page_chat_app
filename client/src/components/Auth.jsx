@@ -7,7 +7,7 @@ import signImgae from '../assets/signup.jpg'
 const cookies = new Cookies();
 
 const initialState = {
-    fullname: '',
+    fullName: '',
     username: '',
     phone: '',
     avatarURL: '',
@@ -32,11 +32,11 @@ const Auth = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const {fullname, username, phone, avatarURL, password, confirmPassword} = form;
+    const {fullName, username, phone, avatarURL, password, confirmPassword} = form;
 
     // Form validation
     if (isSignup) {
-      if (!fullname.trim() || !username.trim() || !phone.trim() || !password.trim() || !confirmPassword.trim()) {
+      if (!fullName.trim() || !username.trim() || !phone.trim() || !password.trim() || !confirmPassword.trim()) {
         alert('Please fill in all required fields');
         return;
       }
@@ -58,12 +58,12 @@ const Auth = () => {
     try {
       const URL = `http://localhost:5001/auth`;
 
-      const {data: {token, userId, hashedPassword}} = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
-        username, phone, fullname, avatarURL, password});
+      const {data: {token, fullName, userId, hashedPassword}} = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
+        username, password,  phone, fullName: form.fullName, avatarURL, fullName });
 
       cookies.set('token', token);
       cookies.set('username', username);
-      cookies.set('fullname', fullname);
+      cookies.set('fullName', fullName);
       cookies.set('userId', userId);
 
       if(isSignup) {
